@@ -1,10 +1,10 @@
 //jshint esversion:6
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
 const app = express();
 const mongoose = require("mongoose");
-const encrypt = require("mongoose-encryption");
+const md5 = require("md5");
+const router = require('express').Router();
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -26,10 +26,17 @@ const userSchema = new mongoose.Schema({
   password: String,
 });
 
-const secret = "DoraemonIsCat";
-userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] });
+// const secret = "DoraemonIsCat";
+// userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] });
 
 const User = new mongoose.model("User", userSchema);
+
+const weatherRoute = require('./route/weather');
+
+// Use View Engine
+
+// Middleware route
+app.use('/secrets', weatherRoute);
 
 app.get("/", function (req, res) {
   res.render("home");
@@ -46,7 +53,7 @@ app.get("/register", function (req, res) {
 app.post("/register", function (req, res) {
   const newUser = new User({
     email: req.body.username,
-    password: req.body.password,
+    password: md5(req.body.password),
   });
   newUser.save(function (err) {
     if (err) {
@@ -58,9 +65,14 @@ app.post("/register", function (req, res) {
   });
 });
 
+app.get("/logout", function (req, res) {
+  // req.logout();
+  res.redirect("/");
+});
+
 app.post("/login", function (req, res) {
   const username = req.body.username;
-  const password = req.body.password;
+  const password = md5(req.body.password);
 
   User.findOne({ email: username }, function (err, foundUser) {
     if (err) {
@@ -74,6 +86,7 @@ app.post("/login", function (req, res) {
     }
   });
 });
+
 
 app.listen(3000, function () {
   console.log("Server is run on port 3000.");
