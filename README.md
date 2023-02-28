@@ -1,7 +1,7 @@
 # TokenX_assignment
- 
-You need Mongodb first.
-After that, you put it down, let you run the command "mongod --dbpath /System/Volumes/Data/data/db" or "mongod --dbpath ~/data/db".
-It will start working server mongodb.
-The next step is to use the command "npm install".
-Finally, "npm run dev" in another terminal
+<br/>
+1. You need Mongodb first. <br/>
+2. After that, you put it down, let you run the command "mongod --dbpath /System/Volumes/Data/data/db" or "mongod --dbpath ~/data/db". <br/>
+3. It will start working server mongodb. <br/>
+4. The next step is to use the command "npm install". <br/>
+5. Finally, "npm run dev" in another terminal <br/>
