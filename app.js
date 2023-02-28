@@ -31,12 +31,9 @@ const userSchema = new mongoose.Schema({
 
 const User = new mongoose.model("User", userSchema);
 
-const weatherRoute = require('./route/weather');
+const bookRoute = require('./route/book');
 
-// Use View Engine
-
-// Middleware route
-app.use('/secrets', weatherRoute);
+app.use('/secrets', bookRoute);
 
 app.get("/", function (req, res) {
   res.render("home");
@@ -59,7 +56,7 @@ app.post("/register", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("secrets");
+      res.render("store");
       console.log("Home coming");
     }
   });
@@ -80,7 +77,7 @@ app.post("/login", function (req, res) {
     } else {
       if (foundUser) {
         if (foundUser.password === password) {
-          res.render("secrets");
+          res.render("store");
         }
       }
     }

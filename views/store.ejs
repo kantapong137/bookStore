@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+
+    <i class="fas fa-key fa-6x"></i>
+    <h1 class="display-3">You've Discovered My Secret!</h1>
+    <p class="secret-text"></p>
+    <form action="/secretss" method="POST">
+      <input type="text" name="bookInfo" class="ghost-input" placeholder="Enter a book name">
+    </form>
+    <hr>
+    <div>
+      <form action="/" method="POST">
+        <input type="text" name="bookInfo" class="ghost-input" placeholder="Enter a book name">
+      </form>
+      <% if(bookInfo !== null)  {%>
+      <p class="bookInfo"><%= bookInfo.title %></p>
+      <% } %>
+    </div>
+    <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
